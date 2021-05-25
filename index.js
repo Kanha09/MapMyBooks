@@ -91,6 +91,6 @@ app.use(function (req, res, next) {
 
 app.use(function (err, req, res, next) {
     console.error(err.stack)
-    res.status(500).render("error/500")
+    res.send(err)
 })
 app.listen(process.env.PORT || 5000, () => console.log(`Server Started on Port `))
