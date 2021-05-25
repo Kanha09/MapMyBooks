@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome <%= name %></h1>
+    
+    <h4>Your books:</h4>
+    
+       
+    <ul>
+    
+        <% for (var myBook of myBooks) { %>
+            
+        <%if (myBook.isReferenceBook == true) { %>
+            <% var reference = "Yes" %>
+            <% } else { %>
+            <% var reference = "No" %>
+                <% } %>
+             
+            <div class="col s12 m7">
+                <div class="card horizontal">
+        <!-- <li><a href = "http://localhost:3000/books/<%= myBook._id %>">Title: <%= myBook.title %> Subject:<%= myBook.subject %> Grade <%= myBook.grade %></a> </li>
+        --> 
+            <div class="card-stacked">
+                <div class="card-content">
+                    
+                    
+                    <h4><%= myBook.title %></h4>
+                    <h7>Subject: <%= myBook.subject %></h7><br>
+                    <h7>Grade: <%= myBook.grade %></h7><br>
+                    <h7>Is it a reference book: <%= reference%></h7>
+                  
+                </div>
+                
+                <div class="card-action">
+                  <a href="http://localhost:3000/books/<%= myBook._id %>">Open</a>
+                  <form  method="POST" action="/books/<%= myBook._id %>?_method=DELETE">
+                    <button type="submit" class="btn red">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                  
+                </div>
+            </div>
+            </div>
+            </div>
+        
+        </form>
+        <% }%>
+  
+    </ul>
+    <!--Checking for no results-->
+    <% try { myBook.title}
+    catch(err){ %>
+        <h1>You do not have any books</h1>
+    <%} %>
+    
+    
+    
+</body>
+</html>

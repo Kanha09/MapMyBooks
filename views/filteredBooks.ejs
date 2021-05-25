@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+    <title>Document</title>
+</head>
+<body>
+    <h1>Books available</h1>
+    <ul>
+        <% for (var myBook of myBooks) { %>
+            <%if (myBook.isReferenceBook == true) { %>
+                <% var reference = "Yes" %>
+                <% } else { %>
+                <% var reference = "No" %>
+                    <% } %>
+                 
+                <div class="col s12 m7">
+                    <div class="card horizontal">
+            
+                <div class="card-stacked">
+                    <div class="card-content">
+                        
+                        
+                        <h4><%= myBook.title %></h4>
+                        <h7>Subject: <%= myBook.subject %></h7><br>
+                        <h7>Grade: <%= myBook.grade %></h7><br>
+                        <h7>Seller: <%= name %></h7>
+                      
+                    </div>
+                    
+                    <div class="card-action">
+                      <a href="/books/<%= myBook._id %>">Open</a>
+                      
+                    </div>
+                </div>
+                </div>
+                </div>
+        <% }%>
+    </ul>
+    <!--Checking for no results-->
+    <% try { myBook.title}
+    catch(err){ %>
+        <h1>No books available, sorry</h1>
+    <%} %>
+    
+    
+</body>
+</html>

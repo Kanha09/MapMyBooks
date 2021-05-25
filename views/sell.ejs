@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+    <title>Sell</title>
+</head>
+<body>
+    <h2>Add a book</h2>
+    <form method="POST" action="/sell">
+      <label for="Title">Title:</label>
+        <input type = "text" name= "title" /> <br>
+
+      
+          <label for="description">Description</label>
+          <textarea name="description" class="materialize-textarea"></textarea>
+          
+      
+          
+        <!-- Subject:
+        <input type = "text" name= "subject" /> <br> -->
+        <label for="subject">Subject:</label>
+        <select id="subject" name="subject"> 
+          <option value="" selected disabled>Choose Subject</option>
+          <option value="English">English</option>
+          <option value="Physics">Physics</option>
+          <option value="Chemistry">Chemistry</option>
+          <option value="Biology">Biology</option>
+          <option value="Maths">Maths</option>
+          <option value="Science">Science</option>
+          <option value="History">History</option>
+          <option value="Geography">Geography</option>
+          <option value="Economics">Economics</option>
+          <option value="Political Science">Political Science</option>
+        </select><br>
+       
+       
+        <label for= "grade">Grade:</label>
+      <select id="grade" name="grade">
+        <option value="" selected disabled>Choose Grade</option>
+          <option value=9>9</option>
+          <option value=10>10</option>
+            <option value=11>11</option>
+              <option value=12>12</option>
+          </select> <br>
+
+          <label for= "isReferenceBook">Is it a reference book?</label>
+          <select id="isReferenceBook" name="isReferenceBook">
+            
+            <option value="" selected disabled>Default</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+             
+            </select><br>
+        
+             
+        
+                <!-- Grade:
+        <input type = "text" name= "grade" /><br> -->
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
