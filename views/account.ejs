@@ -39,7 +39,7 @@
                 </div>
                 
                 <div class="card-action">
-                  <a href="http://localhost:3000/books/<%= myBook._id %>">Open</a>
+                  <a href="/books/<%= myBook._id %>">Open</a>
                   <form  method="POST" action="/books/<%= myBook._id %>?_method=DELETE">
                     <button type="submit" class="btn red">
                         <i class="fas fa-trash"></i>
