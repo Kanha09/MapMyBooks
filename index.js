@@ -11,6 +11,7 @@ const MongoDBStore = require("connect-mongodb-session")(session)
 const mongoose = require("mongoose")
 const connectDB = require('./Db.js')
 const expressLayouts = require("express-ejs-layouts")
+const cors = require("cors")
 // const multer = require("multer")
 // const crypto = require("crypto")
 // const GridFsStorage = require("multer-gridfs-storage")
@@ -38,14 +39,25 @@ app.set("layout", "layouts/main")
 app.use(express.static(path.join(__dirname, "public" )))
 
 //Sessions
-app.use(session ({
-    secret : "sans cool",
-    resave : false,
-    saveUninitialized: false,
-    store: new MongoDBStore({mongooseConnection: mongoose.connection})
-}))
+// app.use(session ({
+//     secret : "sans cool",
+//     resave : false,
+//     saveUninitialized: false,
+//     store: new MongoDBStore({mongooseConnection: mongoose.connection})
+// }))
 
-// Passport middleware
+// // Passport middleware
+// app.use(passport.initialize())
+// app.use(passport.session())
+app.use(express.json())
+app.use(cors({origin: "http://localhost:5000/", credentials: true}))
+app.use(
+    session({
+        secret: "secretcode",
+        resave: true,
+        saveUninitialized: true
+    })
+)
 app.use(passport.initialize())
 app.use(passport.session())
 
