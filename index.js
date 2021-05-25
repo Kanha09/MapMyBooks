@@ -70,6 +70,10 @@ app.get('/auth/google/callback',
     // Successful authentication, redirect home.
     res.redirect('/account');
   });
+app.get('/auth/logout', (req, res) => {
+     req.logout()
+     res.redirect('/login')
+   })
 
 
 //Parses the text as url encoded data
