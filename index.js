@@ -61,13 +61,23 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/account');
+  });
+
 
 //Parses the text as url encoded data
 app.use(express.urlencoded({extended: false}))
 //app.use(express.urlencoded({extended: true}))
 
-//parses text as json
-app.use(express.json())
+// //parses text as json
+// app.use(express.json())
 
 //To use delete method in html forms
 app.use(methodOverride('_method'))
@@ -84,7 +94,7 @@ app.use(methodOverride(function (req, res) {
 
 //connecting to middleware
 app.use("/", api)
-app.use("/auth", require("./routers/auth.js"))
+// app.use("/auth", require("./routers/auth.js"))
 app.use(function (req, res, next) {
     res.status(404).render("error/404")
   })
