@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel= "stylesheet" href="css/style.css">
+
+</head>
+<body>
+  <%- include("../partials/_indexheader.ejs" ) %>
+    <div class="container"> <%- body %></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          var sel = document.querySelectorAll('select');
+          M.FormSelect.init(sel)
+       });
+       M.Sidenav.init(document.querySelector(".sidenav"))
+       M.updateTextFields();
+       
+
+      </script>
+   
+    
+</body>
+</html>
