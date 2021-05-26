@@ -3,14 +3,13 @@ const router = express.Router()
 const Book = require('../models/Book')
 const dotenv = require("dotenv")
 
-
-const { ensureAuth, ensureGuest} = require("../middleware/auth")
+const { ensureAuth, ensureGuest, loggedIn} = require("../middleware/auth")
 
 dotenv.config({path: "./config/config.env"})
 
 //Get home page
 router.get("/", (req, res) => {
-    res.render("index")
+    res.render("index", {layout : "layouts/indexmain"})
 })
 
 
@@ -49,19 +48,19 @@ router.get("/buy", ensureAuth,(req, res)=> {
 })
 
 //get all books
-router.get("/books" ,async(req, res)=> { 
-    try{
-    Book.find(function(err, data) {
-        if (err) {
-            console.log(err)
-        } else {
-            res.send(data)
-        }
-    }) } 
-    catch (err){
-        res.render("/error/500")
-    }
-})
+// router.get("/books" ,async(req, res)=> { 
+//     try{
+//     Book.find(function(err, data) {
+//         if (err) {
+//             console.log(err)
+//         } else {
+//             res.send(data)
+//         }
+//     }) } 
+//     catch (err){
+//         res.render("/error/500")
+//     }
+// })
 
 //Login
 router.get("/login",  (req, res) => { 
@@ -72,11 +71,7 @@ router.get("/login",  (req, res) => {
 router.get("/account", ensureAuth, async(req, res)=> {
     try {
         const books = await Book.find({user: req.user.id}).sort({ createdAt: 'desc' })
-        // if (books.isReferenceBook === true){
-        //     referenceBook = "Yes"
-        // }else if (books.isReferenceBook === false){
-        //     referenceBook =  "Yes"
-        // }
+  
         res.render("account", {
             name: req.user.firstName,
             myBooks: books,
@@ -133,50 +128,6 @@ router.get("/books/:id", async(req, res) => {
     }
 })
 
-//update books
-// router.put("/update/books/:id", ensureAuth, async (req, res) => {
-//     const book = await Book.findById(req.params.id).lean()
-
-//     if (!book) {
-//         return res.render("error/404")
-//     }
-//     if (book.user != req.user.id){
-//         res.redirect("/account")
-//     } else{
-//         res.render("edit", {
-//             book = await Book.findByIdAndUpdate({_id: req.params.id}, req.body, {
-//                 new: true,
-//                 runValidators: true
-//             })
-           
-//         }) 
-//         res.redirect("/account")
-//     }
-// })
-router.put('books/:id', ensureAuth, async (req, res) => {
-    try {
-      let book = await Book.findById(req.params.id).lean()
-  
-      if (!book) {
-        return res.render('error/404')
-      }
-  
-      if (book.user != req.user.id) {
-        res.redirect('/account')
-      } else {
-        book = await Book.findOneAndUpdate({ _id: req.params.id }, req.body, {
-          new: true,
-          runValidators: true,
-        })
-  
-        res.redirect('/account')
-      }
-    } catch (err) {
-      console.error(err)
-      return res.render('error/500')
-    }
-  })
-
 //filter database
 router.post("/availableBooks/", async(req, res) =>{
     
@@ -185,6 +136,7 @@ router.post("/availableBooks/", async(req, res) =>{
     res.render("filteredBooks", {myBooks: books,  name: req.user.firstName})
    
 })
+
 
 
 module.exports = router;

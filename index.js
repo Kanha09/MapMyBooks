@@ -12,10 +12,6 @@ const mongoose = require("mongoose")
 const connectDB = require('./Db.js')
 const expressLayouts = require("express-ejs-layouts")
 const cors = require("cors")
-// const multer = require("multer")
-// const crypto = require("crypto")
-// const GridFsStorage = require("multer-gridfs-storage")
-// const Grid = require("gridfs-stream")
 
 //Storing global variables
 dotenv.config({path: "./config/config.env"})
@@ -38,17 +34,7 @@ app.set("layout", "layouts/main")
 // Static folder
 app.use(express.static(path.join(__dirname, "public" )))
 
-//Sessions
-// app.use(session ({
-//     secret : "sans cool",
-//     resave : false,
-//     saveUninitialized: false,
-//     store: new MongoDBStore({mongooseConnection: mongoose.connection})
-// }))
 
-// // Passport middleware
-// app.use(passport.initialize())
-// app.use(passport.session())
 app.use(express.json())
 app.use(cors({origin: "http://localhost:5000/", credentials: true}))
 app.use(
@@ -62,7 +48,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
@@ -76,12 +62,9 @@ app.get('/auth/logout', (req, res) => {
    })
 
 
+
 //Parses the text as url encoded data
 app.use(express.urlencoded({extended: false}))
-//app.use(express.urlencoded({extended: true}))
-
-// //parses text as json
-// app.use(express.json())
 
 //To use delete method in html forms
 app.use(methodOverride('_method'))
@@ -105,6 +88,6 @@ app.use(function (req, res, next) {
 
 app.use(function (err, req, res, next) {
     console.error(err.stack)
-    res.send(err)
+    res.status(500).render("error/500")
 })
 app.listen(process.env.PORT || 5000, () => console.log(`Server Started on Port `))

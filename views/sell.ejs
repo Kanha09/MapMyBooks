@@ -11,18 +11,18 @@
     <h2>Add a book</h2>
     <form method="POST" action="/sell">
       <label for="Title">Title:</label>
-        <input type = "text" name= "title" /> <br>
+        <input required type = "text" name= "title" /> <br>
 
       
           <label for="description">Description</label>
-          <textarea name="description" class="materialize-textarea"></textarea>
+          <textarea  required name="description" class="materialize-textarea" placeholder="Describe the condition of your book. Give specifics as go the edition, how old it is , etc."></textarea>
           
       
           
         <!-- Subject:
         <input type = "text" name= "subject" /> <br> -->
         <label for="subject">Subject:</label>
-        <select id="subject" name="subject"> 
+        <select id="subject" name="subject" required> 
           <option value="" selected disabled>Choose Subject</option>
           <option value="English">English</option>
           <option value="Physics">Physics</option>
@@ -38,7 +38,7 @@
        
        
         <label for= "grade">Grade:</label>
-      <select id="grade" name="grade">
+      <select id="grade" name="grade" required>
         <option value="" selected disabled>Choose Grade</option>
           <option value=9>9</option>
           <option value=10>10</option>
@@ -46,8 +46,8 @@
               <option value=12>12</option>
           </select> <br>
 
-          <label for= "isReferenceBook">Is it a reference book?</label>
-          <select id="isReferenceBook" name="isReferenceBook">
+          <label for= "isReferenceBook" >Is it a reference book?</label>
+          <select id="isReferenceBook" name="isReferenceBook" required>
             
             <option value="" selected disabled>Default</option>
               <option value="true">Yes</option>
@@ -59,7 +59,12 @@
         
                 <!-- Grade:
         <input type = "text" name= "grade" /><br> -->
-        <button type="submit">Submit</button>
+        <button id = "mySubmit" type="submit">Submit</button>
     </form>
+    <script>
+      function myFunction() {
+          document.getElementById("mySubmit").disabled = true;
+}
+    </script>
 </body>
 </html>

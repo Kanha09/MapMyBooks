@@ -30,7 +30,7 @@
   "scripts": {
     "heroku-prebuild": "npm install",
     "start": "node index.js",
-    "dev": "node index.js"
+    "dev": "nodemon index.js"
   },
   "author": "Kanha",
   "license": "ISC"
