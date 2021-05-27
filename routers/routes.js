@@ -91,15 +91,17 @@ router.post("/sell",async (req, res) => {
         grade : req.body.grade,
         description: req.body.description,
         user:  req.user.id,
+        username: String(req.user.firstName),
         isReferenceBook: req.body.isReferenceBook,
     	})
     
 	await newBook.save()
+    console.log(String(req.user.firstName))
     
 	res.redirect("/account")
 }
     catch(err) {
-        res.render("/error/500")
+        console.log(err)
     }
     
 })
@@ -120,7 +122,7 @@ router.delete("/books/:id", async(req, res) => {
 router.get("/books/:id", async(req, res) => {
     try {
         const book = await Book.findOne({_id: req.params.id})
-        res.render("bookProfile", {bookProps: book, userName: req.user.firstName})
+        res.render("bookProfile", {bookProps: book})
         
     } catch (err) {
         res.status(404)
@@ -132,8 +134,8 @@ router.get("/books/:id", async(req, res) => {
 router.post("/availableBooks/", async(req, res) =>{
     
     const books = await Book.find({subject: req.body.subject,grade : req.body.grade, isReferenceBook: req.body.isReferenceBook}).sort({ createdAt: 'desc' })
-    
-    res.render("filteredBooks", {myBooks: books,  name: req.user.firstName})
+    console.log()
+    res.render("filteredBooks", {myBooks: books})
    
 })
 
