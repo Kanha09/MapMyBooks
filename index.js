@@ -79,7 +79,7 @@ app.use(methodOverride(function (req, res) {
     }
   }))
 
-//connecting to middleware
+//connecting to router
 app.use("/", api)
 // app.use("/auth", require("./routers/auth.js"))
 app.use(function (req, res, next) {
