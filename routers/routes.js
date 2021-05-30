@@ -151,7 +151,7 @@ router.delete("/books/:id", async(req, res) => {
 router.get("/books/:id", async(req, res) => {
     try {
         const book = await Book.findOne({_id: req.params.id})
-        res.render("bookProfile", {bookProps: book, firstImage: book.image_ids[0]})
+        res.render("bookProfile", {bookProps: book})
         
     } catch (err) {
         res.status(404)

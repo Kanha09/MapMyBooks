@@ -4,9 +4,9 @@ const dotenv = require("dotenv")
 dotenv.config()
 
 cloudinary.config({
-    cloud_name: "map-my-books",
-    api_key: 853492255873784,
-    api_secret: "mTLNXkjF7wDSAym92bo5m7esWpk"
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
 exports.uploads = (file, folder) => {
