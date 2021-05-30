@@ -9,7 +9,7 @@
 </head>
 <body>
     <h2>Add a book</h2>
-    <form method="POST" action="/sell">
+    <form method="POST" action="/sell" enctype="multipart/form-data">
       <label for="Title">Title:</label>
         <input required type = "text" name= "title" /> <br>
 
@@ -54,6 +54,7 @@
               <option value="false">No</option>
              
             </select><br>
+            <input  type="file" id="fname" name="image" multiple required><br><br>
         
              
         

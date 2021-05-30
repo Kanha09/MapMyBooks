@@ -8,7 +8,14 @@
     <title>Document</title>
 </head>
 <body>
+    <div class = "row">
+        <div class= "column">
     <h1> Title : <%= bookProps.title %></h1>
+    <% for (const images of bookProps.image_ids ){ %>
+        <img src= <%= images%> width="400"  >
+    <%} %>
+</div>
+</div>
     <p>Subject : <%= bookProps.subject %></p>
     <p>Grade : <%= bookProps.grade %></p>
     <p>Seller: <%= bookProps.username %></p>
