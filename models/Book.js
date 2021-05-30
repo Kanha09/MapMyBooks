@@ -33,6 +33,9 @@ const schema = mongoose.Schema({
     isReferenceBook: {
         type: Boolean,
         require: true
+    },
+    image_ids: {
+        type: Array,
     }
 })
 

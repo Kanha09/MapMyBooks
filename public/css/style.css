@@ -77,7 +77,9 @@ button {
     padding-top: 50px;
   }
   
-  
+  .fname{
+    background-color: cadetblue;
+  }
   /* Modal Content/Box */
   .modal-content {
     background-color: #fefefe;

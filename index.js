@@ -12,7 +12,6 @@ const mongoose = require("mongoose")
 const connectDB = require('./Db.js')
 const expressLayouts = require("express-ejs-layouts")
 const cors = require("cors")
-
 //Storing global variables
 dotenv.config({path: "./config/config.env"})
 
@@ -79,7 +78,7 @@ app.use(methodOverride(function (req, res) {
     }
   }))
 
-//connecting to middleware
+//connecting to router
 app.use("/", api)
 // app.use("/auth", require("./routers/auth.js"))
 app.use(function (req, res, next) {

@@ -2,6 +2,10 @@ const express = require('express')
 const router = express.Router()
 const Book = require('../models/Book')
 const dotenv = require("dotenv")
+const upload = require("../utils/multer")
+const path = require("path")
+const cloudinary = require("../utils/cloudinary")
+const fs = require("fs")
 
 const { ensureAuth, ensureGuest, loggedIn} = require("../middleware/auth")
 
@@ -83,8 +87,33 @@ router.get("/account", ensureAuth, async(req, res)=> {
 })
 
 //make new book
-router.post("/sell",async (req, res) => {
+router.post("/sell",upload.array("image", 4), async (req, res) => {
     try{
+        const uploader = async (path) => await cloudinary.uploads(path, "Images")
+        if (req.method === "POST")
+        {
+            const urls = []
+            const files = req.files
+            
+            for (const file of files) {
+                const {path} = file
+                const newPath = await uploader(path)
+                urls.push(newPath)
+                fs.unlinkSync(path)
+            }
+            img_urls = []
+            for(const url of urls){
+                img_urls.push(url.url)
+            }
+            // user = new User({
+            //     cloudinary_id : img_urls
+            // })
+            
+        } else{
+            res.status(405).json({
+                err: "Images not uploaded successfully"
+            })
+        }
 	const newBook = new Book({
 		title: req.body.title,
 		subject: req.body.subject,
@@ -93,8 +122,8 @@ router.post("/sell",async (req, res) => {
         user:  req.user.id,
         username: String(req.user.firstName),
         isReferenceBook: req.body.isReferenceBook,
+        image_ids: img_urls
     	})
-    
 	await newBook.save()
     console.log(String(req.user.firstName))
     
@@ -122,7 +151,7 @@ router.delete("/books/:id", async(req, res) => {
 router.get("/books/:id", async(req, res) => {
     try {
         const book = await Book.findOne({_id: req.params.id})
-        res.render("bookProfile", {bookProps: book})
+        res.render("bookProfile", {bookProps: book, firstImage: book.image_ids[0]})
         
     } catch (err) {
         res.status(404)
