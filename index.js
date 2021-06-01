@@ -13,7 +13,7 @@ const connectDB = require('./Db.js')
 const expressLayouts = require("express-ejs-layouts")
 const cors = require("cors")
 //Storing global variables
-dotenv.config({path: "./config/config.env"})
+dotenv.config({path: "./.env"})
 
 connectDB()
 
