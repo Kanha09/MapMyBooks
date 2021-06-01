@@ -13,6 +13,7 @@ dotenv.config({path: "./config/config.env"})
 
 //Get home page
 router.get("/", (req, res) => {
+    console.log(__dirname)
     res.render("index", {layout : "layouts/indexmain"})
 })
 
