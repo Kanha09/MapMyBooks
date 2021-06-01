@@ -2,7 +2,7 @@ const multer = require("multer")
 const dotenv = require("dotenv")
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, "C:/Users/kanha/Documents/map-my-books/uploads")
+        cb(null, "./public/uploads")
     },
     filename:function (req, file, cb) {
         cb(null,Date.now() + "-" + file.originalname)
