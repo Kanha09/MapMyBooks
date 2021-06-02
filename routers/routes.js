@@ -102,19 +102,17 @@ router.post("/sell",upload.array("image", 4), async (req, res) => {
                 urls.push(newPath)
                 fs.unlinkSync(path)
             }
-                res.status(200).json({
-                message: 'images uploaded successfully',
-                data: urls
-                })
+                // res.status(200).json({
+                // message: 'images uploaded successfully',
+                // data: urls
+                // })
 
             // console.log(cloudinary.image_ids)
-            // img_urls = []
-            // for(const url of urls){
-            //     img_urls.push(url.url)
-            // }
-            // user = new User({
-            //     cloudinary_id : img_urls
-            // })
+            img_urls = []
+            for(const url of urls){
+                img_urls.push(url.url)
+            }
+        
             
         } else{
             res.status(405).json({
