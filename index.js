@@ -12,6 +12,8 @@ const mongoose = require("mongoose")
 const connectDB = require('./Db.js')
 const expressLayouts = require("express-ejs-layouts")
 const cors = require("cors")
+const multer = require("multer")
+const upload = multer({dest: "uploads/"})
 //Storing global variables
 dotenv.config({path: "./.env"})
 
