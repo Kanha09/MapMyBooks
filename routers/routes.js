@@ -13,6 +13,7 @@ dotenv.config({path: "./config/config.env"})
 
 //Get home page
 router.get("/", (req, res) => {
+    console.log(__dirname)
     res.render("index", {layout : "layouts/indexmain"})
 })
 
@@ -101,13 +102,17 @@ router.post("/sell",upload.array("image", 4), async (req, res) => {
                 urls.push(newPath)
                 fs.unlinkSync(path)
             }
+                // res.status(200).json({
+                // message: 'images uploaded successfully',
+                // data: urls
+                // })
+
+            // console.log(cloudinary.image_ids)
             img_urls = []
             for(const url of urls){
                 img_urls.push(url.url)
             }
-            // user = new User({
-            //     cloudinary_id : img_urls
-            // })
+        
             
         } else{
             res.status(405).json({
@@ -151,7 +156,9 @@ router.delete("/books/:id", async(req, res) => {
 router.get("/books/:id", async(req, res) => {
     try {
         const book = await Book.findOne({_id: req.params.id})
-        res.render("bookProfile", {bookProps: book, firstImage: book.image_ids[0]})
+        
+        res.render("bookProfile", {bookProps: book})
+        console.log(book.image_ids)
         
     } catch (err) {
         res.status(404)
