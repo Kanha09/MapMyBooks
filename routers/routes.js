@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const Book = require('../models/Book')
-const dotenv = require("dotenv")
 const upload = require("../utils/multer")
 const path = require("path")
 const cloudinary = require("../utils/cloudinary")
@@ -9,7 +8,6 @@ const fs = require("fs")
 
 const { ensureAuth, ensureGuest, loggedIn} = require("../middleware/auth")
 
-dotenv.config({path: "./config/config.env"})
 
 //Get home page
 router.get("/", (req, res) => {
