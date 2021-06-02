@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Book = require('../models/Book')
 const dotenv = require("dotenv")
-const upload = require("../multer")
+const upload = require("../utils/multer")
 const path = require("path")
 const cloudinary = require("../utils/cloudinary")
 const fs = require("fs")
@@ -102,10 +102,16 @@ router.post("/sell",upload.array("image", 4), async (req, res) => {
                 urls.push(newPath)
                 fs.unlinkSync(path)
             }
-            img_urls = []
-            for(const url of urls){
-                img_urls.push(url.url)
-            }
+                res.status(200).json({
+                message: 'images uploaded successfully',
+                data: urls
+                })
+
+            // console.log(cloudinary.image_ids)
+            // img_urls = []
+            // for(const url of urls){
+            //     img_urls.push(url.url)
+            // }
             // user = new User({
             //     cloudinary_id : img_urls
             // })
@@ -152,7 +158,9 @@ router.delete("/books/:id", async(req, res) => {
 router.get("/books/:id", async(req, res) => {
     try {
         const book = await Book.findOne({_id: req.params.id})
+        
         res.render("bookProfile", {bookProps: book})
+        console.log(book.image_ids)
         
     } catch (err) {
         res.status(404)
