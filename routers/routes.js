@@ -15,10 +15,6 @@ router.get("/", (req, res) => {
     res.render("index", {layout : "layouts/indexmain"})
 })
 
-
-
-//fileUpload
-
 //Get sell page
 router.get("/sell",ensureAuth ,(req, res)=> {
     try {
@@ -74,7 +70,7 @@ router.get("/login",  (req, res) => {
 router.get("/account", ensureAuth, async(req, res)=> {
     try {
         const books = await Book.find({user: req.user.id}).sort({ createdAt: 'desc' })
-  
+       
         res.render("account", {
             name: req.user.firstName,
             myBooks: books,
@@ -86,9 +82,10 @@ router.get("/account", ensureAuth, async(req, res)=> {
 })
 
 //make new book
-router.post("/sell",upload.array("image", 4), async (req, res) => {
+router.post("/sell",upload.array("image", 3), async (req, res) => {
     try{
         const uploader = async (path) => await cloudinary.uploads(path, "Images")
+        
         if (req.method === "POST")
         {
             const urls = []
@@ -104,12 +101,16 @@ router.post("/sell",upload.array("image", 4), async (req, res) => {
                 // message: 'images uploaded successfully',
                 // data: urls
                 // })
-
-            // console.log(cloudinary.image_ids)
+            
             img_urls = []
             for(const url of urls){
                 img_urls.push(url.url)
             }
+            public_ids = []
+            for(const id of urls){
+                public_ids.push(id.id)
+            }
+        
         
             
         } else{
@@ -125,7 +126,8 @@ router.post("/sell",upload.array("image", 4), async (req, res) => {
         user:  req.user.id,
         username: String(req.user.firstName),
         isReferenceBook: req.body.isReferenceBook,
-        image_ids: img_urls
+        image_ids: img_urls,
+        public_ids: public_ids
     	})
 	await newBook.save()
     console.log(String(req.user.firstName))
@@ -142,13 +144,16 @@ router.post("/sell",upload.array("image", 4), async (req, res) => {
 router.delete("/books/:id", async(req, res) => {
     try {
         await Book.deleteOne({_id: req.params.id})
+    
         res.redirect("/account")
-        // res.status(204).send()
-    } catch {
+        res.status(204).send()
+    } catch{
         res.status(404)
         res.send({error: "post doesnt exist"})
+        
     }
 })
+
 
 //get individual books
 router.get("/books/:id", async(req, res) => {

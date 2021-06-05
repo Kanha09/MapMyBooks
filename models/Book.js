@@ -36,6 +36,9 @@ const schema = mongoose.Schema({
     },
     image_ids: {
         type: Array,
+    },
+    public_ids: {
+        type: Array,
     }
 })
 
